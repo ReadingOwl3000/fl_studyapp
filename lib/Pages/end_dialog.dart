@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:fl_studyapp/main.dart';
 
-//import 'package:fl_studyapp/timer.dart';
-
 class EndDialog extends StatelessWidget {
   const EndDialog({super.key});
   static show(BuildContext context) => showDialog(
@@ -15,10 +13,6 @@ class EndDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //static void showEndMessage(context, timerClass) {
-    // showDialog(
-    //  context: context,
-    //  builder: (BuildContext context) {
     return AlertDialog(
       title: const Text("Timer Ended"),
       content: const Text("The timer has ended."),
@@ -46,9 +40,5 @@ class EndDialog extends StatelessWidget {
         ),
       ],
     );
-  } //,
-
-  // );
+  }
 }
-
-//}
