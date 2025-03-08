@@ -1,8 +1,12 @@
-# This is a simple pomodoro application written in Flutter
+## This is a simple pomodoro application written in Flutter
 
-Use: 
+#Use: 
 - click the play button to start the timer
 
-Modifications:
+#Modifications:
 Change the image in assets/image.png to one you like before building
-Due to copyright, I can't distribute images I don't own, but you can have them for private use
+
+#Credits: 
+This article for some of the timer logic:
+https://medium.com/@dtejaswini.06/building-a-countdown-timer-in-flutter-with-animation-a-step-by-step-guide-9ffa91e3d26e
+
