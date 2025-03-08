@@ -6,7 +6,7 @@ import 'package:fl_studyapp/main.dart';
 
 class EndDialog extends StatelessWidget {
   const EndDialog({super.key});
-  static show(BuildContext context) => showDialog(
+  static show() => showDialog(
     context: navigatorKey.currentContext!,
     builder: (_) => EndDialog(),
   );
@@ -23,10 +23,7 @@ class EndDialog extends StatelessWidget {
             TextButton(
               child: const Text("Restart"),
               onPressed: () {
-                Provider.of<StudyTimer>(
-                  listen: false,
-                  context,
-                ).runTimer(context);
+                Provider.of<StudyTimer>(listen: false, context).runTimer();
                 Navigator.of(context).pop();
               },
             ),

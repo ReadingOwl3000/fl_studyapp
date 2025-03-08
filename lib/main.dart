@@ -1,3 +1,4 @@
+import 'package:fl_studyapp/Pages/input_time_dialog.dart';
 import 'package:fl_studyapp/timer.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
         ),
         brightness: Brightness.dark,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Pomodoro Timer App yay'),
       navigatorKey: navigatorKey,
     );
   }
@@ -47,6 +48,13 @@ class MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
+        actions: [
+          IconButton(
+            onPressed: InputTimeDialog.show,
+            icon: Icon(Icons.access_alarms_rounded),
+          ),
+          //PopupMenuButton(itemBuilder: itemBuilder)
+        ],
       ),
       body: Container(
         decoration: BoxDecoration(
@@ -73,7 +81,7 @@ class MyHomePageState extends State<MyHomePage> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Provider.of<StudyTimer>(listen: false, context).timer?.cancel();
-          Provider.of<StudyTimer>(listen: false, context).runTimer(context);
+          Provider.of<StudyTimer>(listen: false, context).runTimer();
         },
         tooltip: 'start timer',
         child: const Icon(Icons.play_arrow_rounded),
@@ -88,5 +96,3 @@ class MyHomePageState extends State<MyHomePage> {
     super.dispose();
   }
 }
-
-// for future reference https://medium.com/@dtejaswini.06/building-a-countdown-timer-in-flutter-with-animation-a-step-by-step-guide-9ffa91e3d26e

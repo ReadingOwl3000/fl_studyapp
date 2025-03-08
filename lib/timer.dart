@@ -7,27 +7,33 @@ import 'Wigets/timer_widget.dart';
 class StudyTimer extends ChangeNotifier {
   Timer? timer;
   static Duration timerDuration = Duration(
-    seconds: 5,
+    minutes: 20,
   ); //change duration here! or possibly durationNotifier.value
 
   final ValueNotifier<Duration> durationNotifier = ValueNotifier<Duration>(
     timerDuration,
   );
 
-  void runTimer(context) {
-    timer = Timer.periodic(const Duration(seconds: 1), (_) => addTime(context));
+  void runTimer() {
     TimerWidget().buildTime(timerDuration);
+    notify(); //this is so it also shows the first second after a restart and not 00
+    timer = Timer.periodic(const Duration(seconds: 1), (_) => addTime());
+    TimerWidget().buildTime(durationNotifier.value);
     durationNotifier.value = timerDuration;
   }
 
-  void addTime(context) {
+  void addTime() {
     final seconds = durationNotifier.value.inSeconds - 1;
     if (seconds < 0) {
       timer?.cancel();
-      EndDialog.show(context);
+      EndDialog.show();
     } else {
       durationNotifier.value = Duration(seconds: seconds);
       notifyListeners();
     }
+  }
+
+  void notify() {
+    notifyListeners();
   }
 }
