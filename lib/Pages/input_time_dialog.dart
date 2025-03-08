@@ -21,7 +21,7 @@ class InputTimeDialog extends StatelessWidget {
       listen: true,
       context,
     ).durationNotifier.value.toString().substring(5, 7);
-    var secondsController = TextEditingController(text: "$secondsOutput");
+    var secondsController = TextEditingController(text: secondsOutput);
     return Dialog(
       child: SizedBox(
         height: 300,
@@ -72,13 +72,6 @@ class InputTimeDialog extends StatelessWidget {
                 Provider.of<StudyTimer>(listen: false, context)
                     .durationNotifier
                     .value = StudyTimer.timerDuration;
-                print(
-                  Provider.of<StudyTimer>(
-                    listen: false,
-                    context,
-                  ).durationNotifier.value,
-                );
-                print(StudyTimer.timerDuration);
                 Provider.of<StudyTimer>(listen: false, context).notify();
                 Navigator.pop(context);
               },
