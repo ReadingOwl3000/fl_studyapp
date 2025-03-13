@@ -3,6 +3,7 @@ import 'dart:async';
 
 import 'Pages/end_dialog.dart';
 import 'Wigets/timer_widget.dart';
+import 'package:wakelock_plus/wakelock_plus.dart';
 
 class StudyTimer extends ChangeNotifier {
   Timer? timer;
@@ -17,6 +18,11 @@ class StudyTimer extends ChangeNotifier {
   void runTimer() {
     TimerWidget().buildTime(timerDuration);
     notify(); //this is so it also shows the first second after a restart and not 00
+    try {
+      WakelockPlus.enable();
+    } catch (e) {
+      // print("wakelock error $e");
+    }
     timer = Timer.periodic(const Duration(seconds: 1), (_) => addTime());
     TimerWidget().buildTime(durationNotifier.value);
     durationNotifier.value = timerDuration;
@@ -26,6 +32,11 @@ class StudyTimer extends ChangeNotifier {
     final seconds = durationNotifier.value.inSeconds - 1;
     if (seconds < 0) {
       timer?.cancel();
+      try {
+        WakelockPlus.disable();
+      } catch (e) {
+        // print("wakelock error $e");
+      }
       EndDialog.show();
     } else {
       durationNotifier.value = Duration(seconds: seconds);
