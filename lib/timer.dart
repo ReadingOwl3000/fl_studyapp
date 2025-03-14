@@ -10,13 +10,14 @@ class StudyTimer extends ChangeNotifier {
   static Duration timerDuration = Duration(
     minutes: 20,
   ); //change duration here! or possibly durationNotifier.value
-
+  var isPlaying = false;
   final ValueNotifier<Duration> durationNotifier = ValueNotifier<Duration>(
     timerDuration,
   );
 
   void runTimer() {
     TimerWidget().buildTime(timerDuration);
+    isPlaying = true;
     notify(); //this is so it also shows the first second after a restart and not 00
     try {
       WakelockPlus.enable();
@@ -32,6 +33,8 @@ class StudyTimer extends ChangeNotifier {
     final seconds = durationNotifier.value.inSeconds - 1;
     if (seconds < 0) {
       timer?.cancel();
+      isPlaying = false;
+
       try {
         WakelockPlus.disable();
       } catch (e) {

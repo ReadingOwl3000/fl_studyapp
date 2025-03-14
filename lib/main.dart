@@ -17,6 +17,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
@@ -52,6 +53,7 @@ class MyHomePageState extends State<MyHomePage> {
           IconButton(
             onPressed: InputTimeDialog.show,
             icon: Icon(Icons.access_alarms_rounded),
+            tooltip: "focus timer settings",
           ),
           //PopupMenuButton(itemBuilder: itemBuilder)
         ],
@@ -80,11 +82,24 @@ class MyHomePageState extends State<MyHomePage> {
 
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Provider.of<StudyTimer>(listen: false, context).timer?.cancel();
-          Provider.of<StudyTimer>(listen: false, context).runTimer();
+          var timer = Provider.of<StudyTimer>(listen: false, context);
+          if (!timer.isPlaying) {
+            timer.timer?.cancel();
+            timer.runTimer();
+          } else {
+            //TODO pause logic here
+          }
         },
-        tooltip: 'start timer',
-        child: const Icon(Icons.play_arrow_rounded),
+        tooltip:
+            Provider.of<StudyTimer>(listen: false, context).isPlaying
+                ? "Pause player"
+                : "Start timer",
+        // 'start/pause timer',
+        child:
+            Provider.of<StudyTimer>(listen: false, context).isPlaying
+                ? Icon(Icons.pause_rounded)
+                : Icon(Icons.play_arrow_rounded),
+        //const Icon(Icons.play_arrow_rounded),
       ),
     );
   }
