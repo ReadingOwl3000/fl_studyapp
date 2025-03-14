@@ -69,7 +69,7 @@ class MyHomePageState extends State<MyHomePage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              TimerWidget().buildTime(
+              TimerWidget.buildTime(
                 Provider.of<StudyTimer>(
                   listen: true,
                   context,
@@ -84,19 +84,17 @@ class MyHomePageState extends State<MyHomePage> {
         onPressed: () {
           var timer = Provider.of<StudyTimer>(listen: false, context);
           if (!timer.isPlaying) {
-            timer.timer?.cancel();
             timer.runTimer();
           } else {
-            //TODO pause logic here
+            timer.pauseTimer();
           }
         },
         tooltip:
-            Provider.of<StudyTimer>(listen: false, context).isPlaying
+            Provider.of<StudyTimer>(listen: true, context).isPlaying
                 ? "Pause player"
                 : "Start timer",
-        // 'start/pause timer',
         child:
-            Provider.of<StudyTimer>(listen: false, context).isPlaying
+            Provider.of<StudyTimer>(listen: true, context).isPlaying
                 ? Icon(Icons.pause_rounded)
                 : Icon(Icons.play_arrow_rounded),
         //const Icon(Icons.play_arrow_rounded),

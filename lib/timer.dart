@@ -10,23 +10,23 @@ class StudyTimer extends ChangeNotifier {
   static Duration timerDuration = Duration(
     minutes: 20,
   ); //change duration here! or possibly durationNotifier.value
-  var isPlaying = false;
+  bool isPlaying = false;
+  bool toResume = false;
   final ValueNotifier<Duration> durationNotifier = ValueNotifier<Duration>(
     timerDuration,
   );
 
   void runTimer() {
-    TimerWidget().buildTime(timerDuration);
+    TimerWidget.buildTime(timerDuration);
     isPlaying = true;
     notify(); //this is so it also shows the first second after a restart and not 00
-    try {
-      WakelockPlus.enable();
-    } catch (e) {
-      // print("wakelock error $e");
-    }
+    WakelockPlus.enable();
     timer = Timer.periodic(const Duration(seconds: 1), (_) => addTime());
-    TimerWidget().buildTime(durationNotifier.value);
-    durationNotifier.value = timerDuration;
+    if (toResume) {
+      toResume = false;
+    } else {
+      durationNotifier.value = timerDuration;
+    }
   }
 
   void addTime() {
@@ -34,17 +34,20 @@ class StudyTimer extends ChangeNotifier {
     if (seconds < 0) {
       timer?.cancel();
       isPlaying = false;
-
-      try {
-        WakelockPlus.disable();
-      } catch (e) {
-        // print("wakelock error $e");
-      }
+      durationNotifier.value = timerDuration;
+      WakelockPlus.disable();
       EndDialog.show();
     } else {
       durationNotifier.value = Duration(seconds: seconds);
       notifyListeners();
     }
+  }
+
+  void pauseTimer() {
+    isPlaying = false;
+    toResume = true;
+    timer?.cancel();
+    notify();
   }
 
   void notify() {
