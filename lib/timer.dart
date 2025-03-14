@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 
 import 'Pages/end_dialog.dart';
-import 'Wigets/timer_widget.dart';
+import 'Widgets/timer_widget.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
 class StudyTimer extends ChangeNotifier {

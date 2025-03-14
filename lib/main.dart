@@ -2,7 +2,7 @@ import 'package:fl_studyapp/Pages/input_time_dialog.dart';
 import 'package:fl_studyapp/timer.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'Wigets/timer_widget.dart';
+import 'Widgets/timer_widget.dart';
 
 void main() {
   runApp(ChangeNotifierProvider(create: (_) => StudyTimer(), child: MyApp()));
