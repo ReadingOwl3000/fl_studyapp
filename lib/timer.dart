@@ -19,7 +19,6 @@ class StudyTimer extends ChangeNotifier {
   void runTimer() {
     TimerWidget.buildTime(timerDuration);
     isPlaying = true;
-    notify(); //this is so it also shows the first second after a restart and not 00
     WakelockPlus.enable();
     timer = Timer.periodic(const Duration(seconds: 1), (_) => addTime());
     if (toResume) {
@@ -35,6 +34,7 @@ class StudyTimer extends ChangeNotifier {
       timer?.cancel();
       isPlaying = false;
       durationNotifier.value = timerDuration;
+      notify();
       WakelockPlus.disable();
       EndDialog.show();
     } else {
