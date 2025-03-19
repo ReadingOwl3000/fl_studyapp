@@ -5,20 +5,31 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 class InputTimeDialog extends StatelessWidget {
-  const InputTimeDialog({super.key});
-  static show() => showDialog(
+  const InputTimeDialog(this.isFocus, {super.key});
+  static show(isFocus) => showDialog(
     context: navigatorKey.currentContext!,
-    builder: (_) => InputTimeDialog(),
+    builder: (_) => InputTimeDialog(isFocus),
   );
+  final bool isFocus;
 
   @override
   Widget build(BuildContext context) {
+    // bool isFocus = true;
+    String descriptiveText;
+
+    if (isFocus) {
+      descriptiveText = "How long would you like to focus?";
+    } else {
+      descriptiveText = "How long would you like your break?";
+    }
+
+    // String descriptiveText = "How long would you like to focus?";
     var minutesController = TextEditingController(
       text:
-          "${Provider.of<StudyTimer>(listen: true, context).durationNotifier.value.inMinutes}",
+          "${Provider.of<StudyTimer>(listen: false, context).durationNotifier.value.inMinutes}",
     );
     var secondsOutput = Provider.of<StudyTimer>(
-      listen: true,
+      listen: false,
       context,
     ).durationNotifier.value.toString().substring(5, 7);
     var secondsController = TextEditingController(text: secondsOutput);
@@ -29,7 +40,7 @@ class InputTimeDialog extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Text("How long would you like to focus?"),
+            Text(descriptiveText),
 
             Row(
               mainAxisSize: MainAxisSize.min,
@@ -65,15 +76,20 @@ class InputTimeDialog extends StatelessWidget {
             ),
             TextButton(
               onPressed: () {
-                StudyTimer.timerDuration = Duration(
-                  minutes: int.parse(minutesController.text),
-                  seconds: int.parse(secondsController.text),
-                );
-                Provider.of<StudyTimer>(listen: false, context)
-                    .durationNotifier
-                    .value = StudyTimer.timerDuration;
-                Provider.of<StudyTimer>(listen: false, context).notify();
-                Navigator.pop(context);
+                if (isFocus) {
+                  StudyTimer.timerDuration = Duration(
+                    minutes: int.parse(minutesController.text),
+                    seconds: int.parse(secondsController.text),
+                  );
+                  Provider.of<StudyTimer>(listen: false, context)
+                      .durationNotifier
+                      .value = StudyTimer.timerDuration;
+                  Provider.of<StudyTimer>(listen: false, context).notify();
+                  Navigator.pop(context);
+                } else {
+                  // break timer logic here
+                  Navigator.pop(context);
+                }
               },
               child: const Text("Save"),
             ),

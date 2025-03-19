@@ -51,9 +51,18 @@ class MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
         actions: [
           IconButton(
-            onPressed: InputTimeDialog.show,
+            onPressed: () {
+              InputTimeDialog.show(true);
+            },
             icon: Icon(Icons.access_alarms_rounded),
             tooltip: "focus timer settings",
+          ),
+          IconButton(
+            onPressed: () {
+              InputTimeDialog.show(false);
+            },
+            icon: Icon(Icons.snooze_rounded),
+            tooltip: "break timer settings",
           ),
           //PopupMenuButton(itemBuilder: itemBuilder)
         ],
