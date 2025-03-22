@@ -7,14 +7,15 @@ import 'package:wakelock_plus/wakelock_plus.dart';
 
 class StudyTimer extends ChangeNotifier {
   Timer? timer;
-  static Duration timerDuration = Duration(
-    minutes: 20,
-  ); //change duration here! or possibly durationNotifier.value
+  static Duration timerDuration = focusDuration;
   bool isPlaying = false;
   bool toResume = false;
   final ValueNotifier<Duration> durationNotifier = ValueNotifier<Duration>(
     timerDuration,
   );
+  bool isFocus = false;
+  static var focusDuration = Duration(minutes: 20);
+  static var breakDuration = Duration(minutes: 10);
 
   void runTimer() {
     TimerWidget.buildTime(timerDuration);

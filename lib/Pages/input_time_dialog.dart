@@ -76,18 +76,30 @@ class InputTimeDialog extends StatelessWidget {
             ),
             TextButton(
               onPressed: () {
+                var studyTimer = Provider.of<StudyTimer>(
+                  listen: false,
+                  context,
+                );
+                var newDuration =
+                    StudyTimer.focusDuration = Duration(
+                      minutes: int.parse(minutesController.text),
+                      seconds: int.parse(secondsController.text),
+                    );
                 if (isFocus) {
-                  StudyTimer.timerDuration = Duration(
-                    minutes: int.parse(minutesController.text),
-                    seconds: int.parse(secondsController.text),
-                  );
-                  Provider.of<StudyTimer>(listen: false, context)
-                      .durationNotifier
-                      .value = StudyTimer.timerDuration;
-                  Provider.of<StudyTimer>(listen: false, context).notify();
+                  StudyTimer.focusDuration = newDuration;
+                  StudyTimer.timerDuration = StudyTimer.focusDuration;
+                  studyTimer.durationNotifier.value = StudyTimer.focusDuration;
+                  studyTimer.isFocus = true;
+                  studyTimer.notify();
                   Navigator.pop(context);
                 } else {
                   // break timer logic here
+                  StudyTimer.breakDuration = newDuration;
+                  StudyTimer.timerDuration = StudyTimer.breakDuration;
+
+                  studyTimer.durationNotifier.value = StudyTimer.timerDuration;
+                  studyTimer.isFocus = false;
+                  studyTimer.notify();
                   Navigator.pop(context);
                 }
               },
