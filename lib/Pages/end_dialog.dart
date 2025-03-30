@@ -1,4 +1,5 @@
 //import 'package:fl_studyapp/main.dart';
+import 'package:fl_studyapp/Widgets/timer_widget.dart';
 import 'package:fl_studyapp/timer.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -27,6 +28,10 @@ class EndDialog extends StatelessWidget {
                 Navigator.of(context).pop();
               },
             ),
+            otherTimerButton(
+              Provider.of<StudyTimer>(listen: false, context),
+              context,
+            ),
             TextButton(
               child: const Text("Cancel"),
               onPressed: () {
@@ -37,5 +42,36 @@ class EndDialog extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  //TODO fix break duration and focus duration syncing!
+  Widget otherTimerButton(studyTimer, context) {
+    if (studyTimer.isFocus) {
+      return TextButton(
+        child: const Text("Start break"),
+        onPressed: () {
+          StudyTimer.timerDuration = StudyTimer.breakDuration;
+          studyTimer.isFocus = false;
+          studyTimer.runTimer();
+          studyTimer.notify();
+          print("run timer with duration ${StudyTimer.timerDuration}");
+          Navigator.of(context).pop();
+        },
+      );
+    } else {
+      return TextButton(
+        child: const Text("Start focus"),
+        onPressed: () {
+          StudyTimer.timerDuration = StudyTimer.breakDuration;
+          print(StudyTimer.timerDuration);
+          studyTimer.isFocus = true;
+          studyTimer.notify();
+          studyTimer.runTimer();
+          print("run timer with duration ${StudyTimer.timerDuration}");
+
+          Navigator.of(context).pop();
+        },
+      );
+    }
   }
 }
