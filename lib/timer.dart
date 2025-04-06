@@ -13,7 +13,7 @@ class StudyTimer extends ChangeNotifier {
   final ValueNotifier<Duration> durationNotifier = ValueNotifier<Duration>(
     timerDuration,
   );
-  bool isFocus = false;
+  bool isFocus = true;
   static var focusDuration = Duration(minutes: 20);
   static var breakDuration = Duration(minutes: 10);
 
