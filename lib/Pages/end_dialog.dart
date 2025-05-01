@@ -59,7 +59,7 @@ class EndDialog extends StatelessWidget {
       return TextButton(
         child: const Text("Start focus"),
         onPressed: () {
-          StudyTimer.timerDuration = StudyTimer.breakDuration;
+          StudyTimer.timerDuration = StudyTimer.focusDuration;
           studyTimer.isFocus = true;
           studyTimer.notify();
           studyTimer.runTimer();
