@@ -4,6 +4,7 @@ import 'dart:async';
 import 'Pages/end_dialog.dart';
 import 'Widgets/timer_widget.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 class StudyTimer extends ChangeNotifier {
   Timer? timer;
