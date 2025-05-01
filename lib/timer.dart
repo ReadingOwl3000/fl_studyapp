@@ -56,6 +56,7 @@ class StudyTimer extends ChangeNotifier {
   Future<void> playSound() async {
     final player = AudioPlayer();
     await player.setSource(AssetSource('sounds/bell.wav'));
+    await player.resume();
   }
 
   void notify() {
