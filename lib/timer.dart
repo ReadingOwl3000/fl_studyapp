@@ -38,6 +38,7 @@ class StudyTimer extends ChangeNotifier {
       durationNotifier.value = timerDuration;
       notify();
       WakelockPlus.disable();
+      playSound();
       EndDialog.show();
     } else {
       durationNotifier.value = Duration(seconds: seconds);
@@ -50,6 +51,11 @@ class StudyTimer extends ChangeNotifier {
     toResume = true;
     timer?.cancel();
     notify();
+  }
+
+  Future<void> playSound() async {
+    final player = AudioPlayer();
+    await player.setSource(AssetSource('sounds/bell.wav'));
   }
 
   void notify() {

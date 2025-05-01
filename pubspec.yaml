@@ -65,6 +65,7 @@ flutter:
             - assets/_image.png
             - assets/image_flower.jpg
             - assets/flower_tree.jpg
+            - assets/sounds/bell.wav
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
