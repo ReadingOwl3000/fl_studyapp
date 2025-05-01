@@ -16,23 +16,21 @@ class InputTimeDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     // bool isFocus = true;
     String descriptiveText;
+    String hintTextMinutes;
+    String hintTextSeconds;
 
     if (isFocus) {
       descriptiveText = "How long would you like to focus?";
+      hintTextMinutes = StudyTimer.focusDuration.inMinutes.toString();
+      hintTextSeconds = StudyTimer.focusDuration.toString().substring(5, 7);
     } else {
       descriptiveText = "How long would you like your break?";
+      hintTextMinutes = StudyTimer.breakDuration.inMinutes.toString();
+      hintTextSeconds = StudyTimer.breakDuration.toString().substring(5, 7);
     }
 
-    // String descriptiveText = "How long would you like to focus?";
-    var minutesController = TextEditingController(
-      text:
-          "${Provider.of<StudyTimer>(listen: false, context).durationNotifier.value.inMinutes}",
-    );
-    var secondsOutput = Provider.of<StudyTimer>(
-      listen: false,
-      context,
-    ).durationNotifier.value.toString().substring(5, 7);
-    var secondsController = TextEditingController(text: secondsOutput);
+    var minutesController = TextEditingController(text: hintTextMinutes);
+    var secondsController = TextEditingController(text: hintTextSeconds);
     return Dialog(
       child: SizedBox(
         height: 300,
@@ -80,11 +78,10 @@ class InputTimeDialog extends StatelessWidget {
                   listen: false,
                   context,
                 );
-                var newDuration =
-                    StudyTimer.focusDuration = Duration(
-                      minutes: int.parse(minutesController.text),
-                      seconds: int.parse(secondsController.text),
-                    );
+                var newDuration = Duration(
+                  minutes: int.parse(minutesController.text),
+                  seconds: int.parse(secondsController.text),
+                );
                 if (isFocus) {
                   StudyTimer.focusDuration = newDuration;
                   StudyTimer.timerDuration = StudyTimer.focusDuration;

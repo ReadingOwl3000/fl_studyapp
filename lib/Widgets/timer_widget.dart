@@ -10,7 +10,6 @@ class TimerWidget {
     final minutes = twoDigits(duration.inMinutes.remainder(60));
     final seconds = twoDigits(duration.inSeconds.remainder(60));
     double scale = 4;
-    print("called with duration $duration");
     return Column(
       children: [
         Text(

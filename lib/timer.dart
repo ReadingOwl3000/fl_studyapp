@@ -40,7 +40,7 @@ class StudyTimer extends ChangeNotifier {
       EndDialog.show();
     } else {
       durationNotifier.value = Duration(seconds: seconds);
-      notifyListeners();
+      notify();
     }
   }
 
