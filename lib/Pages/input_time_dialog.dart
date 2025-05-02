@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fl_studyapp/main.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:fl_studyapp/shared_prefs.dart';
 
 class InputTimeDialog extends StatelessWidget {
   const InputTimeDialog(this.isFocus, {super.key});
@@ -88,6 +89,8 @@ class InputTimeDialog extends StatelessWidget {
                   studyTimer.durationNotifier.value = StudyTimer.focusDuration;
                   studyTimer.isFocus = true;
                   studyTimer.notify();
+                  SharedPrefs().writePrefs();
+
                   Navigator.pop(context);
                 } else {
                   // break timer logic here
@@ -97,6 +100,7 @@ class InputTimeDialog extends StatelessWidget {
                   studyTimer.durationNotifier.value = StudyTimer.timerDuration;
                   studyTimer.isFocus = false;
                   studyTimer.notify();
+                  SharedPrefs().writePrefs();
                   Navigator.pop(context);
                 }
               },

@@ -37,6 +37,7 @@ dependencies:
   provider: ^6.1.2
   wakelock_plus: ^1.2.10
   audioplayers: ^6.4.0
+  shared_preferences: ^2.5.3
 
 dev_dependencies:
   flutter_test:

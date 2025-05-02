@@ -3,6 +3,7 @@ import 'package:fl_studyapp/timer.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'Widgets/timer_widget.dart';
+import 'package:fl_studyapp/shared_prefs.dart';
 
 void main() {
   runApp(ChangeNotifierProvider(create: (_) => StudyTimer(), child: MyApp()));
@@ -43,8 +44,28 @@ class MyHomePage extends StatefulWidget {
 }
 
 class MyHomePageState extends State<MyHomePage> {
+  bool _isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _initializeApp();
+  }
+
+  Future<void> _initializeApp() async {
+    await SharedPrefs().getPrefs();
+    TimerWidget.buildTime(StudyTimer.focusDuration);
+    setState(() {
+      _isLoading = false; // initialization  complete
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    if (_isLoading) {
+      return Scaffold(body: Center(child: CircularProgressIndicator()));
+    }
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -64,7 +85,6 @@ class MyHomePageState extends State<MyHomePage> {
             icon: Icon(Icons.snooze_rounded),
             tooltip: "break timer settings",
           ),
-          //PopupMenuButton(itemBuilder: itemBuilder)
         ],
       ),
       body: Container(
