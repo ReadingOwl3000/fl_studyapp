@@ -6,6 +6,10 @@
 #endif
 
 #include "flutter/generated_plugin_registrant.h"
+#include <glib.h> // For g_build_filename
+#include <unistd.h> // For getpid and readlink
+#include <stdio.h>
+#include <string>   // For std::string
 
 struct _MyApplication {
   GtkApplication parent_instance;
@@ -14,19 +18,45 @@ struct _MyApplication {
 
 G_DEFINE_TYPE(MyApplication, my_application, GTK_TYPE_APPLICATION)
 
+// Function to get the absolute path of the executable
+static std::string getExecutablePath() {
+  pid_t pid = getpid();
+  std::string _link = "/proc/" + std::to_string(pid) + "/exe";
+  char proc[PATH_MAX];
+  int ch = readlink(_link.c_str(), proc, sizeof(proc)-1);
+  if (ch < 0) {
+     g_warning("failed to readlink: %s", strerror(errno));
+    return std::string();
+  }
+  proc[ch] = 0;
+  std::string path = proc;
+  std::string::size_type t = path.find_last_of("/");
+  path = path.substr(0, t);
+
+  return path + std::string("/");
+}
+
 // Implements GApplication::activate.
 static void my_application_activate(GApplication* application) {
   MyApplication* self = MY_APPLICATION(application);
   GtkWindow* window =
       GTK_WINDOW(gtk_application_window_new(GTK_APPLICATION(application)));
 
-  // Use a header bar when running in GNOME as this is the common style used
-  // by applications and is the setup most users will be using (e.g. Ubuntu
-  // desktop).
-  // If running on X and not using GNOME then just use a traditional title bar
-  // in case the window manager does more exotic layout, e.g. tiling.
-  // If running on Wayland assume the header bar will work (may need changing
-  // if future cases occur).
+  // Set the application icon
+  if (g_file_test("assets", G_FILE_TEST_IS_DIR)) {
+    // For debug mode
+    if (!gtk_window_set_icon_from_file(window, "assets/icons/icon.png", NULL)) {
+      g_warning("Failed to set application icon from debug path: assets/icons/icon.png");
+    }
+  } else {
+    // For launcher mode
+    std::string iconPath = getExecutablePath() + "data/flutter_assets/assets/icons/icon.png";
+    if (!gtk_window_set_icon_from_file(window, iconPath.c_str(), NULL)) {
+      g_warning("Failed to set application icon from launcher path: %s", iconPath.c_str());
+    }
+  }
+
+  // Use a header bar when running in GNOME
   gboolean use_header_bar = TRUE;
 #ifdef GDK_WINDOWING_X11
   GdkScreen* screen = gtk_window_get_screen(window);
