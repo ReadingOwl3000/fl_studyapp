@@ -38,6 +38,7 @@ dependencies:
   wakelock_plus: ^1.2.10
   audioplayers: ^6.4.0
   shared_preferences: ^2.5.3
+  flutter_launcher_icons: ^0.14.3
 
 dev_dependencies:
   flutter_test:
@@ -67,6 +68,7 @@ flutter:
             - assets/image_flower.jpg
             - assets/flower_tree.jpg
             - assets/sounds/bell.wav
+            - assets/icons/icon.png
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
