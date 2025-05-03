@@ -67,6 +67,7 @@ flutter:
             - assets/_image.png
             - assets/image_flower.jpg
             - assets/flower_tree.jpg
+            - assets/waterfall.jpg
             - assets/sounds/bell.wav
             - assets/icons/icon.png
 

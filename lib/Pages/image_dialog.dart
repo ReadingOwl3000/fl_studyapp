@@ -11,7 +11,7 @@ class ImageDialog extends StatelessWidget {
   Widget imageOption(title, image) {
     return SimpleDialogOption(
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(title),
           Container(
@@ -36,6 +36,7 @@ class ImageDialog extends StatelessWidget {
       children: [
         imageOption("Pink flower", AssetImage("assets/image_flower.jpg")),
         imageOption("Tree at a river", AssetImage("assets/flower_tree.jpg")),
+        imageOption("Waterfall", AssetImage("assets/waterfall.jpg")),
       ],
     );
   }
