@@ -7,7 +7,7 @@ import 'package:fl_studyapp/timer.dart';
 import 'package:provider/provider.dart';
 
 class ImagePicker {
-  static var newFile;
+  static late File newFile;
   Future<void> pick() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.image,
@@ -26,3 +26,6 @@ class ImagePicker {
     }
   }
 }
+
+//TODO  remove + rename images
+//TODO give titles to images (list)

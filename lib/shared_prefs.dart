@@ -21,8 +21,6 @@ class SharedPrefs {
     MyHomePageState.imageList = prefs.getStringList("images") ?? [];
     MyHomePageState.imageList.add(newImage);
     prefs.setStringList("images", MyHomePageState.imageList);
-
-    print(MyHomePageState.imageList);
   }
 
   Future<List<String>> getImages() async {
