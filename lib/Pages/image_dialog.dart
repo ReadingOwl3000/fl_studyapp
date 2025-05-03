@@ -1,5 +1,9 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:fl_studyapp/main.dart';
+import 'package:fl_studyapp/timer.dart';
+import 'package:provider/provider.dart';
 
 class ImageDialog extends StatelessWidget {
   const ImageDialog({super.key});
@@ -7,6 +11,8 @@ class ImageDialog extends StatelessWidget {
     context: navigatorKey.currentContext!,
     builder: (_) => ImageDialog(),
   );
+
+  static var currentImage = AssetImage("assets/flower_tree.jpg");
 
   Widget imageOption(title, image) {
     return SimpleDialogOption(
@@ -24,7 +30,11 @@ class ImageDialog extends StatelessWidget {
         ],
       ),
       onPressed: () {
-        print("click");
+        currentImage = image;
+        Provider.of<StudyTimer>(
+          listen: false,
+          navigatorKey.currentContext!,
+        ).notify();
       },
     );
   }
@@ -37,6 +47,10 @@ class ImageDialog extends StatelessWidget {
         imageOption("Pink flower", AssetImage("assets/image_flower.jpg")),
         imageOption("Tree at a river", AssetImage("assets/flower_tree.jpg")),
         imageOption("Waterfall", AssetImage("assets/waterfall.jpg")),
+        TextButton(
+          onPressed: () => Navigator.of(context).pop(),
+          child: Text("Close"),
+        ),
       ],
     );
   }
