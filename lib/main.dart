@@ -39,13 +39,13 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
   final String title;
-
   @override
   State<MyHomePage> createState() => MyHomePageState();
 }
 
 class MyHomePageState extends State<MyHomePage> {
   bool _isLoading = true;
+  static late List<String> imageList;
 
   @override
   void initState() {
@@ -56,6 +56,7 @@ class MyHomePageState extends State<MyHomePage> {
   Future<void> _initializeApp() async {
     await SharedPrefs().getPrefs();
     TimerWidget.buildTime(StudyTimer.focusDuration);
+    imageList = await SharedPrefs().getImages();
     setState(() {
       _isLoading = false; // initialization  complete
     });

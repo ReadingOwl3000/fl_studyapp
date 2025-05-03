@@ -1,3 +1,4 @@
+import 'package:fl_studyapp/main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'timer.dart';
 
@@ -13,5 +14,19 @@ class SharedPrefs {
     final prefs = await SharedPreferences.getInstance();
     StudyTimer.breakDuration = Duration(seconds: prefs.getInt("break") ?? 600);
     StudyTimer.focusDuration = Duration(seconds: prefs.getInt("focus") ?? 1200);
+  }
+
+  Future<void> saveImages(newImage) async {
+    final prefs = await SharedPreferences.getInstance();
+    MyHomePageState.imageList = prefs.getStringList("images") ?? [];
+    MyHomePageState.imageList.add(newImage);
+    prefs.setStringList("images", MyHomePageState.imageList);
+
+    print(MyHomePageState.imageList);
+  }
+
+  Future<List<String>> getImages() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getStringList("images") ?? [];
   }
 }
