@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'Widgets/timer_widget.dart';
 import 'package:fl_studyapp/shared_prefs.dart';
+import 'Pages/image_dialog.dart';
 
 void main() {
   runApp(ChangeNotifierProvider(create: (_) => StudyTimer(), child: MyApp()));
@@ -87,7 +88,8 @@ class MyHomePageState extends State<MyHomePage> {
           ),
           IconButton(
             onPressed: () {
-              print("image picker here");
+              //print("image picker here");
+              ImageDialog.show();
             },
             icon: Icon(Icons.image),
           ),
