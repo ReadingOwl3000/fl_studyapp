@@ -85,6 +85,12 @@ class MyHomePageState extends State<MyHomePage> {
             icon: Icon(Icons.snooze_rounded),
             tooltip: "break timer settings",
           ),
+          IconButton(
+            onPressed: () {
+              print("image picker here");
+            },
+            icon: Icon(Icons.image),
+          ),
         ],
       ),
       body: Container(
