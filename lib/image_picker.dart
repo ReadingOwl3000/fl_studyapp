@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
+import 'package:fl_studyapp/Pages/image_name_dialog.dart';
 import 'package:fl_studyapp/main.dart';
 import 'package:fl_studyapp/shared_prefs.dart';
 import 'package:fl_studyapp/timer.dart';
@@ -17,6 +18,7 @@ class ImagePicker {
       newFile = File(result.files.single.path!);
       //print(newFile);
       SharedPrefs().saveImages(result.files.single.path!);
+      ImageNameDialog.show();
       Provider.of<StudyTimer>(
         listen: false,
         navigatorKey.currentContext!,
