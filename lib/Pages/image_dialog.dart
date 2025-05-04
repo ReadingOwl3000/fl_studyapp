@@ -1,7 +1,5 @@
 import 'dart:io';
-
 import 'package:fl_studyapp/image_picker.dart';
-//import 'package:fl_studyapp/shared_prefs.dart';
 import 'package:flutter/material.dart';
 import 'package:fl_studyapp/main.dart';
 import 'package:fl_studyapp/timer.dart';
@@ -27,22 +25,11 @@ class _ImageDialogState extends State<ImageDialog> {
     filepath,
   }) async {
     bool error = false;
-    // print(error);
-    // try {
-    //   print(image);
-    //   var file = File(path: image);
-    //   if ()
-    // } catch (e) {
-    //   print("error: $e");
-    //   error = true;
-    // }
-    // FlutterError.onError = (details) {};
     if (filepath != null) {
       if (!(await File(filepath).exists())) {
         error = true;
       }
     }
-
     return SimpleDialogOption(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -92,7 +79,6 @@ class _ImageDialogState extends State<ImageDialog> {
         child: Text("Close"),
       ),
     ];
-
     return list;
   }
 
