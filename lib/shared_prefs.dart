@@ -37,7 +37,6 @@ class SharedPrefs {
     final prefs = await SharedPreferences.getInstance();
     MyHomePageState.nameOfImagesList = prefs.getStringList("names") ?? [];
     MyHomePageState.nameOfImagesList.add(newImageName);
-    print(MyHomePageState.nameOfImagesList);
     prefs.setStringList("names", MyHomePageState.nameOfImagesList);
   }
 }
