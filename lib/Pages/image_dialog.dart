@@ -70,7 +70,7 @@ class _ImageDialogState extends State<ImageDialog> {
       await imageOption("Waterfall", AssetImage("assets/waterfall.jpg")),
       for (int i = 0; i < MyHomePageState.imageList.length; i++)
         await imageOption(
-          "from files",
+          MyHomePageState.nameOfImagesList[i],
           FileImage(File(MyHomePageState.imageList[i])),
           filepath: MyHomePageState.imageList[i],
         ),
@@ -97,8 +97,8 @@ class _ImageDialogState extends State<ImageDialog> {
                 Text("Pick a background image"),
                 IconButton(
                   onPressed: () async {
+                    Navigator.pop(context);
                     await ImagePicker().pick();
-                    setState(() {});
                   },
                   icon: const Icon(Icons.add_a_photo_outlined),
                 ),

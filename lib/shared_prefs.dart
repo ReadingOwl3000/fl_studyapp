@@ -27,4 +27,17 @@ class SharedPrefs {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getStringList("images") ?? [];
   }
+
+  Future<List<String>> getNames() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getStringList("names") ?? [];
+  }
+
+  Future<void> saveNames(newImageName) async {
+    final prefs = await SharedPreferences.getInstance();
+    MyHomePageState.nameOfImagesList = prefs.getStringList("names") ?? [];
+    MyHomePageState.nameOfImagesList.add(newImageName);
+    print(MyHomePageState.nameOfImagesList);
+    prefs.setStringList("names", MyHomePageState.nameOfImagesList);
+  }
 }

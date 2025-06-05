@@ -46,6 +46,7 @@ class MyHomePage extends StatefulWidget {
 class MyHomePageState extends State<MyHomePage> {
   bool _isLoading = true;
   static late List<String> imageList;
+  static late List<String> nameOfImagesList;
 
   @override
   void initState() {
@@ -57,6 +58,8 @@ class MyHomePageState extends State<MyHomePage> {
     await SharedPrefs().getPrefs();
     TimerWidget.buildTime(StudyTimer.focusDuration);
     imageList = await SharedPrefs().getImages();
+    nameOfImagesList = await SharedPrefs().getNames();
+    print(nameOfImagesList);
     setState(() {
       _isLoading = false; // initialization  complete
     });

@@ -2,10 +2,7 @@ import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:fl_studyapp/Pages/image_name_dialog.dart';
-import 'package:fl_studyapp/main.dart';
 import 'package:fl_studyapp/shared_prefs.dart';
-import 'package:fl_studyapp/timer.dart';
-import 'package:provider/provider.dart';
 
 class ImagePicker {
   static late File newFile;
@@ -19,10 +16,6 @@ class ImagePicker {
       //print(newFile);
       SharedPrefs().saveImages(result.files.single.path!);
       ImageNameDialog.show();
-      Provider.of<StudyTimer>(
-        listen: false,
-        navigatorKey.currentContext!,
-      ).notify();
     } else {
       // User canceled the picker
     }
@@ -30,4 +23,3 @@ class ImagePicker {
 }
 
 //TODO  remove + rename images
-//TODO give titles to images (list)
