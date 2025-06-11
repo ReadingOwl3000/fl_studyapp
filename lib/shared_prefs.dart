@@ -16,10 +16,11 @@ class SharedPrefs {
     StudyTimer.focusDuration = Duration(seconds: prefs.getInt("focus") ?? 1200);
   }
 
-  Future<void> saveImages(newImage) async {
+  Future<void> saveImages(String? newImage) async {
     final prefs = await SharedPreferences.getInstance();
-    MyHomePageState.imageList = prefs.getStringList("images") ?? [];
-    MyHomePageState.imageList.add(newImage);
+    if (newImage != null) {
+      MyHomePageState.imageList.add(newImage);
+    }
     prefs.setStringList("images", MyHomePageState.imageList);
   }
 
@@ -33,10 +34,11 @@ class SharedPrefs {
     return prefs.getStringList("names") ?? [];
   }
 
-  Future<void> saveNames(newImageName) async {
+  Future<void> saveNames(String? newImageName) async {
     final prefs = await SharedPreferences.getInstance();
-    MyHomePageState.nameOfImagesList = prefs.getStringList("names") ?? [];
-    MyHomePageState.nameOfImagesList.add(newImageName);
+    if (newImageName != null) {
+      MyHomePageState.nameOfImagesList.add(newImageName);
+    }
     prefs.setStringList("names", MyHomePageState.nameOfImagesList);
   }
 }

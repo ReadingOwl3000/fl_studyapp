@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:fl_studyapp/image_picker.dart';
+import 'package:fl_studyapp/shared_prefs.dart';
 import 'package:flutter/material.dart';
 import 'package:fl_studyapp/main.dart';
 import 'package:fl_studyapp/timer.dart';
@@ -21,6 +22,7 @@ class ImageDialog extends StatefulWidget {
 class _ImageDialogState extends State<ImageDialog> {
   Future<Widget> imageOption(
     String title,
+    int index,
     ImageProvider image, {
     filepath,
   }) async {
@@ -31,6 +33,53 @@ class _ImageDialogState extends State<ImageDialog> {
       }
     }
     return SimpleDialogOption(
+      child:
+          index == -1
+              ? contentOfTile(title, error, image)
+              : ClipRect(
+                child: Dismissible(
+                  key: Key(title),
+                  direction: DismissDirection.horizontal,
+                  onDismissed: (direction) {
+                    if (index != -1) {
+                      setState(() {
+                        MyHomePageState.imageList.removeAt(index);
+                        MyHomePageState.nameOfImagesList.removeAt(index);
+                        SharedPrefs().saveImages(null);
+                        SharedPrefs().saveNames(null);
+                      });
+                    }
+                  },
+                  background: Container(
+                    color: Colors.red,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Icon(Icons.delete_rounded),
+                        ),
+                      ],
+                    ),
+                  ),
+                  child: Container(child: contentOfTile(title, error, image)),
+                ),
+              ),
+      onPressed: () {
+        if (!error) {
+          ImageDialog.currentImage = image;
+          Provider.of<StudyTimer>(
+            listen: false,
+            navigatorKey.currentContext!,
+          ).notify();
+        }
+      },
+    );
+  }
+
+  Widget contentOfTile(String title, bool error, ImageProvider<Object> image) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -48,29 +97,26 @@ class _ImageDialogState extends State<ImageDialog> {
           ),
         ],
       ),
-      onPressed: () {
-        if (!error) {
-          ImageDialog.currentImage = image;
-          Provider.of<StudyTimer>(
-            listen: false,
-            navigatorKey.currentContext!,
-          ).notify();
-        }
-      },
     );
   }
 
   Future<List<Widget>> buildWidgetList() async {
     List<Widget> list = [
-      await imageOption("Pink flower", AssetImage("assets/image_flower.jpg")),
+      await imageOption(
+        "Pink flower",
+        -1,
+        AssetImage("assets/image_flower.jpg"),
+      ),
       await imageOption(
         "Tree at a river",
+        -1,
         AssetImage("assets/flower_tree.jpg"),
       ),
-      await imageOption("Waterfall", AssetImage("assets/waterfall.jpg")),
+      await imageOption("Waterfall", -1, AssetImage("assets/waterfall.jpg")),
       for (int i = 0; i < MyHomePageState.imageList.length; i++)
         await imageOption(
           MyHomePageState.nameOfImagesList[i],
+          i,
           FileImage(File(MyHomePageState.imageList[i])),
           filepath: MyHomePageState.imageList[i],
         ),
