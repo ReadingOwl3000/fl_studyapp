@@ -65,6 +65,7 @@ class ImageNameDialog extends StatelessWidget {
       listen: false,
       navigatorKey.currentContext!,
     ).notify();
+    controller.clear();
     ImageDialog.show();
   }
 }
