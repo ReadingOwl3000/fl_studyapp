@@ -111,6 +111,7 @@ class MyHomePageState extends State<MyHomePage> {
                     ImageDialog.show();
                   },
                   icon: Icon(Icons.image),
+                  tooltip: "change background image",
                 ),
                 IconButton(
                   onPressed: () {
