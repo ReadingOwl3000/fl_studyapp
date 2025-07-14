@@ -39,7 +39,7 @@ class _ImageDialogState extends State<ImageDialog> {
               : ClipRect(
                 child: Dismissible(
                   key: Key(title),
-                  direction: DismissDirection.horizontal,
+                  direction: DismissDirection.endToStart,
                   onDismissed: (direction) {
                     if (index != -1) {
                       setState(() {
@@ -53,7 +53,7 @@ class _ImageDialogState extends State<ImageDialog> {
                   background: Container(
                     color: Colors.red,
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         Padding(
                           padding: const EdgeInsets.all(8.0),
