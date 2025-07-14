@@ -141,11 +141,4 @@ class MyHomePageState extends State<MyHomePage> {
       ),
     );
   }
-
-  @override
-  void dispose() {
-    Provider.of<StudyTimer>(listen: false, context).timer?.cancel();
-    Provider.of<StudyTimer>(listen: false, context).durationNotifier.dispose();
-    super.dispose();
-  }
 }
