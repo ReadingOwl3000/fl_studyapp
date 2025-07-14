@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:fl_studyapp/Pages/image_dialog.dart';
 import 'package:fl_studyapp/main.dart';
 import 'package:flutter/cupertino.dart';
@@ -54,17 +56,27 @@ class SharedPrefs {
     String imageString = prefs.getString("currentImage") ?? "none";
     late ImageProvider image;
     if (imageString.startsWith("AssetImage")) {
-      String name = imageString.substring(
-        imageString.indexOf('"'),
-        imageString.lastIndexOf('"'),
-      );
-      name = name.replaceFirst('"', '');
+      String name = getName(imageString);
       image = AssetImage(name);
-
-      //  } else if (imageString.startsWith(pattern)) {
+    } else if (imageString.startsWith("FileImage")) {
+      File file = File(getName(imageString));
+      if (await file.exists()) {
+        image = FileImage(file);
+      } else {
+        image = AssetImage("assets/flower_tree.jpg");
+      }
     } else {
       image = AssetImage("assets/flower_tree.jpg");
     }
     return image;
+  }
+
+  String getName(String imageString) {
+    String name = imageString.substring(
+      imageString.indexOf('"'),
+      imageString.lastIndexOf('"'),
+    );
+    name = name.replaceFirst('"', '');
+    return name;
   }
 }
