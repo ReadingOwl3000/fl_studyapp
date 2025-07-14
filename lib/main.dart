@@ -59,6 +59,7 @@ class MyHomePageState extends State<MyHomePage> {
     TimerWidget.buildTime(StudyTimer.focusDuration);
     imageList = await SharedPrefs().getImages();
     nameOfImagesList = await SharedPrefs().getNames();
+    ImageDialog.currentImage = await SharedPrefs().getCurrentImage();
     setState(() {
       _isLoading = false; // initialization  complete
     });

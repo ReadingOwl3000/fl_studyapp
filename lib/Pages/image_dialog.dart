@@ -68,6 +68,7 @@ class _ImageDialogState extends State<ImageDialog> {
       onPressed: () {
         if (!error) {
           ImageDialog.currentImage = image;
+          SharedPrefs().saveCurrentImage();
           Provider.of<StudyTimer>(
             listen: false,
             navigatorKey.currentContext!,

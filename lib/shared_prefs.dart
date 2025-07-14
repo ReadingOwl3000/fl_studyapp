@@ -1,4 +1,6 @@
+import 'package:fl_studyapp/Pages/image_dialog.dart';
 import 'package:fl_studyapp/main.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'timer.dart';
 
@@ -40,5 +42,29 @@ class SharedPrefs {
       MyHomePageState.nameOfImagesList.add(newImageName);
     }
     prefs.setStringList("names", MyHomePageState.nameOfImagesList);
+  }
+
+  Future<void> saveCurrentImage() async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setString("currentImage", ImageDialog.currentImage.toString());
+  }
+
+  Future<ImageProvider> getCurrentImage() async {
+    final prefs = await SharedPreferences.getInstance();
+    String imageString = prefs.getString("currentImage") ?? "none";
+    late ImageProvider image;
+    if (imageString.startsWith("AssetImage")) {
+      String name = imageString.substring(
+        imageString.indexOf('"'),
+        imageString.lastIndexOf('"'),
+      );
+      name = name.replaceFirst('"', '');
+      image = AssetImage(name);
+
+      //  } else if (imageString.startsWith(pattern)) {
+    } else {
+      image = AssetImage("assets/flower_tree.jpg");
+    }
+    return image;
   }
 }
