@@ -15,8 +15,8 @@ class StudyTimer extends ChangeNotifier {
     timerDuration,
   );
   bool isFocus = true;
-  static var focusDuration = Duration(minutes: 20);
-  static var breakDuration = Duration(minutes: 10);
+  static var focusDuration = Duration(minutes: 25);
+  static var breakDuration = Duration(minutes: 5);
 
   void runTimer() {
     TimerWidget.buildTime(timerDuration);
