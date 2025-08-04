@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
     return Consumer<DarkLightModeChanger>(
       builder:
           (context, darkLightModeChanger, _) => MaterialApp(
-            title: 'Flutter Demo',
+            title: 'Pomodoro Timer App',
             debugShowCheckedModeBanner: false,
             theme: ThemeData(
               colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
               brightness: Brightness.dark,
             ),
             themeMode: darkLightModeChanger.mode,
-            home: const MyHomePage(title: 'Pomodoro Timer App yay'),
+            home: const MyHomePage(title: 'Pomodoro Timer App'),
             navigatorKey: navigatorKey,
           ),
     );
