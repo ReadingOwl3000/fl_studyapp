@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:fl_studyapp/Pages/image_name_dialog.dart';
 import 'package:fl_studyapp/image_picker.dart';
 import 'package:fl_studyapp/shared_prefs.dart';
 import 'package:flutter/material.dart';
@@ -32,49 +33,56 @@ class _ImageDialogState extends State<ImageDialog> {
         error = true;
       }
     }
-    return SimpleDialogOption(
-      child:
-          index == -1
-              ? contentOfTile(title, error, image)
-              : ClipRect(
-                child: Dismissible(
-                  key: Key(title),
-                  direction: DismissDirection.endToStart,
-                  onDismissed: (direction) {
-                    if (index != -1) {
-                      setState(() {
-                        MyHomePageState.imageList.removeAt(index);
-                        MyHomePageState.nameOfImagesList.removeAt(index);
-                        SharedPrefs().saveImages(null);
-                        SharedPrefs().saveNames(null);
-                      });
-                    }
-                  },
-                  background: Container(
-                    color: Colors.red,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Icon(Icons.delete_rounded),
-                        ),
-                      ],
-                    ),
-                  ),
-                  child: Container(child: contentOfTile(title, error, image)),
-                ),
-              ),
-      onPressed: () {
-        if (!error) {
-          ImageDialog.currentImage = image;
-          SharedPrefs().saveCurrentImage();
-          Provider.of<StudyTimer>(
-            listen: false,
-            navigatorKey.currentContext!,
-          ).notify();
-        }
+    return GestureDetector(
+      onDoubleTap: () {
+        Navigator.of(context).pop();
+        ImageNameDialog.show(isRename: true, placeInList: index);
       },
+      child: SimpleDialogOption(
+        child:
+            index == -1
+                ? contentOfTile(title, error, image)
+                : ClipRect(
+                  child: Dismissible(
+                    key: Key(title),
+                    direction: DismissDirection.horizontal,
+                    onDismissed: (direction) {
+                      if (index != -1) {
+                        if (direction == DismissDirection.endToStart) {
+                          setState(() {
+                            MyHomePageState.imageList.removeAt(index);
+                            MyHomePageState.nameOfImagesList.removeAt(index);
+                            SharedPrefs().saveNames(null);
+                          });
+                        }
+                      }
+                    },
+                    background: Container(
+                      color: Colors.red,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Icon(Icons.delete_rounded),
+                          ),
+                        ],
+                      ),
+                    ),
+                    child: Container(child: contentOfTile(title, error, image)),
+                  ),
+                ),
+        onPressed: () {
+          if (!error) {
+            ImageDialog.currentImage = image;
+            SharedPrefs().saveCurrentImage();
+            Provider.of<StudyTimer>(
+              listen: false,
+              navigatorKey.currentContext!,
+            ).notify();
+          }
+        },
+      ),
     );
   }
 

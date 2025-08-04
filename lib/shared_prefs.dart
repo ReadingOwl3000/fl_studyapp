@@ -46,6 +46,16 @@ class SharedPrefs {
     prefs.setStringList("names", MyHomePageState.nameOfImagesList);
   }
 
+  Future<void> renameImage(String newName, int placeInList) async {
+    final prefs = await SharedPreferences.getInstance();
+    MyHomePageState.nameOfImagesList.replaceRange(
+      placeInList,
+      placeInList + 1,
+      [newName],
+    );
+    prefs.setStringList("names", MyHomePageState.nameOfImagesList);
+  }
+
   Future<void> saveCurrentImage() async {
     final prefs = await SharedPreferences.getInstance();
     prefs.setString("currentImage", ImageDialog.currentImage.toString());
