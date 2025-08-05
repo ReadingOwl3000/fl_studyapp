@@ -40,7 +40,6 @@ Terminal=false
 Exec=/your/path/here/fl_studyapp/build/linux/x64/release/bundle/fl_studyapp
 Name=Study Timer
 Icon=/your/path/here/fl_studyapp/build/linux/x64/release/bundle/data/flutter_assets/assets/icons/icon.png
-StartupWMClass=com.example.fl_studyapp
 ```
 Save and make executable via ``` chmod +x fl_studyapp.desktop ```  
 You may have to log in and out or restart your PC to see the icon. 
