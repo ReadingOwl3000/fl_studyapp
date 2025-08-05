@@ -26,8 +26,25 @@ on linux, run:
 
  Make the binary executable using  ``` chmod +x .fl_studyapp ```
 
- I recommend using a desktop file for a better experience, instructions / example coming soon!
-
+  ###### Create a desktop file
+ These are typically stored in ~/.local/share/applications.   
+ Create the file ``` touch fl_studyapp.desktop ```  
+ Open in your editor of choice. 
+ Paste this and replace with the path to your application/binary
+ ```
+[Desktop Entry]
+Encoding=UTF-8
+Version=1.0
+Type=Application
+Terminal=false
+Exec=/your/path/here/fl_studyapp/build/linux/x64/release/bundle/fl_studyapp
+Name=Study Timer
+Icon=/your/path/here/fl_studyapp/build/linux/x64/release/bundle/data/flutter_assets/assets/icons/icon.png
+StartupWMClass=com.example.fl_studyapp
+```
+Save and make executable via ``` chmod +x fl_studyapp.desktop ```  
+You may have to log in and out or restart your PC to see the icon. 
+ 
 
 
 
