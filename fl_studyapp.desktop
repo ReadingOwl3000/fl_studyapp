@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Pomodoro Study App
+Comment= Pomodoro Study App written in flutter
+Exec=flatpak run de.reading_owl_productions.fl_studyapp
+Icon=icon
+Terminal=false
+Type=Application
+Categories=Utility;Application;
+
