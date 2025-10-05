@@ -25,10 +25,10 @@ class _ImageDialogState extends State<ImageDialog> {
     String title,
     int index,
     ImageProvider image, {
-    filepath,
+    required String filepath,
   }) async {
     bool error = false;
-    if (filepath != null) {
+    if (!filepath.startsWith("ignorethis/assets/")) {
       if (!(await File(filepath).exists())) {
         error = true;
       }
@@ -75,7 +75,7 @@ class _ImageDialogState extends State<ImageDialog> {
         onPressed: () {
           if (!error) {
             ImageDialog.currentImage = image;
-            SharedPrefs().saveCurrentImage();
+            SharedPrefs().saveCurrentImage(filepath);
             Provider.of<StudyTimer>(
               listen: false,
               navigatorKey.currentContext!,
@@ -115,13 +115,20 @@ class _ImageDialogState extends State<ImageDialog> {
         "Pink flower",
         -1,
         AssetImage("assets/image_flower.jpg"),
+        filepath: "ignorethis/assets/image_flower.jpg",
       ),
       await imageOption(
         "Tree at a river",
         -1,
         AssetImage("assets/flower_tree.jpg"),
+        filepath: "ignorethis/assets/flower_tree.jpg",
       ),
-      await imageOption("Waterfall", -1, AssetImage("assets/waterfall.jpg")),
+      await imageOption(
+        "Waterfall",
+        -1,
+        AssetImage("assets/waterfall.jpg"),
+        filepath: "ignorethis/assets/waterfall.jpg",
+      ),
       for (int i = 0; i < MyHomePageState.imageList.length; i++)
         await imageOption(
           MyHomePageState.nameOfImagesList[i],

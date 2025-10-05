@@ -56,9 +56,16 @@ class SharedPrefs {
     prefs.setStringList("names", MyHomePageState.nameOfImagesList);
   }
 
-  Future<void> saveCurrentImage() async {
+  Future<void> saveCurrentImage(String filepath) async {
     final prefs = await SharedPreferences.getInstance();
-    prefs.setString("currentImage", ImageDialog.currentImage.toString());
+    String image = "";
+    if (!filepath.startsWith("ignorethis/assets/")) {
+      image = 'FileImage "$filepath"';
+    } else {
+      String path = filepath.replaceFirst("ignorethis/", "");
+      image = 'AssetImage "$path"';
+    }
+    prefs.setString("currentImage", image);
   }
 
   Future<ImageProvider> getCurrentImage() async {
