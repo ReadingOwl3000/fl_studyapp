@@ -1,4 +1,4 @@
-package de.reading_owl_productions.fl_studyapp
+package org.michaelvogt.fl_studyapp
 
 import io.flutter.embedding.android.FlutterActivity
 

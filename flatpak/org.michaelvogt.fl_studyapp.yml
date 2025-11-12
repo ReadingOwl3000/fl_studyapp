@@ -1,6 +1,6 @@
 # Generated from flatpak-flutter.yml, do not edit
 # Visit the flatpak-flutter project at https://github.com/TheAppgineer/flatpak-flutter
-id: de.reading_owl_productions.fl_studyapp
+id: org.michaelvogt.fl_studyapp
 runtime: org.freedesktop.Platform
 runtime-version: '24.08'
 sdk: org.freedesktop.Sdk
@@ -35,10 +35,10 @@ modules:
       - install -D $BUNDLE_PATH/fl_studyapp /app/bin/fl_studyapp
       - cp -r $BUNDLE_PATH/lib /app/bin/lib
       - cp -r $BUNDLE_PATH/data /app/bin/data
-      - install -Dm644 assets/icons/icon.png /app/share/icons/hicolor/64x64/apps/de.reading_owl_productions.fl_studyapp.png
-      - sed -i s'/Exec=flatpak run de.reading_owl_productions.fl_studyapp/Exec=fl_studyapp/' fl_studyapp.desktop
-      - mv fl_studyapp.desktop de.reading_owl_productions.fl_studyapp.desktop
-      - install -Dm644  de.reading_owl_productions.fl_studyapp.desktop -t "${FLATPAK_DEST}/share/applications" 
+      - install -Dm644 assets/icons/icon.png /app/share/icons/hicolor/64x64/apps/org.michaelvogt.fl_studyapp.png
+      - sed -i s'/Exec=flatpak run org.michaelvogt.fl_studyapp/Exec=fl_studyapp/' fl_studyapp.desktop
+      - mv fl_studyapp.desktop org.michaelvogt.fl_studyapp.desktop
+      - install -Dm644  org.michaelvogt.fl_studyapp.desktop -t "${FLATPAK_DEST}/share/applications" 
 
     sources:
       - pubspec-sources.json

@@ -2,8 +2,8 @@
 Version=1.0
 Name=Pomodoro Study App
 Comment= Pomodoro Study App written in flutter
-Exec=flatpak run de.reading_owl_productions.fl_studyapp
-Icon=de.reading_owl_productions.fl_studyapp
+Exec=flatpak run org.michaelvogt.fl_studyapp
+Icon=org.michaelvogt.fl_studyapp
 Terminal=false
 Type=Application
 Categories=Utility;Application;
