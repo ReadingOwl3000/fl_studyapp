@@ -7,6 +7,12 @@ class DarkLightModeChanger extends ChangeNotifier {
   static const IconData lightMode = Icons.light_mode_outlined;
   //late String modeString;
   late ThemeMode mode = ThemeMode.system;
+  late Color color = Colors.deepPurple;
+
+  void notify() {
+    notifyListeners();
+  }
+
   void getModePrefs() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     var modeString = prefs.getString("mode") ?? "system";
