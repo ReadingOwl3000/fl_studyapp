@@ -1,5 +1,24 @@
 {
     "cSpell.words": [
+        "ignorethis",
+        "michaelvogt",
         "studyapp"
+    ],
+    "files.exclude": {
+        "**/flatpak/**": false
+    },
+    "search.exclude": {
+        "**/flatpak/**": false
+    },
+    "files.watcherExclude": {
+        "**/flatpak/**": true
+    },
+    "dart.analysisExcludedFolders": [
+        "flatpak",
+        "flatpak/**",
+        "**/flatpak/**"
+    ],
+    "todo-tree.exclude": [
+        "**/flatpak/**"
     ]
 }
