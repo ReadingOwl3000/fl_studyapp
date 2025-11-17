@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class DarkLightModeChanger extends ChangeNotifier {
@@ -11,6 +12,7 @@ class DarkLightModeChanger extends ChangeNotifier {
 
   void notify() {
     notifyListeners();
+    writeModePrefs();
   }
 
   void getModePrefs() async {
@@ -23,12 +25,18 @@ class DarkLightModeChanger extends ChangeNotifier {
     } else {
       mode = ThemeMode.system;
     }
+    color =
+        colorFromHex(
+          prefs.getString("color") ?? colorToHex(Colors.deepPurple),
+        ) ??
+        Colors.deepPurple;
     notifyListeners();
   }
 
   void writeModePrefs() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString("mode", mode.name);
+    prefs.setString("color", colorToHex(color));
   }
 
   void toggleModePrefs() {
