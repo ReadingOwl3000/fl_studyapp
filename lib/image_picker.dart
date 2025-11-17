@@ -21,6 +21,3 @@ class ImagePicker {
     }
   }
 }
-
-//TODO  remove + rename images
-//TODO save last picked image to prefs to reopen after app closed
