@@ -11,12 +11,16 @@
         "**/flatpak/**": false
     },
     "files.watcherExclude": {
-        "**/flatpak/**": true
+        "**/flatpak/**": true,
+        ".flatpak-builder/**": false,
+        "build": true
     },
     "dart.analysisExcludedFolders": [
         "flatpak",
         "flatpak/**",
-        "**/flatpak/**"
+        "**/flatpak/**",
+        ".flatpak-builder/**",
+        "build"
     ],
     "todo-tree.exclude": [
         "**/flatpak/**"

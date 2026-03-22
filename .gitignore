@@ -47,3 +47,5 @@ assets/_image.png
 
 /flatpak/.flatpak-builder
 /flatpak/repo
+/.flatpak-builder/**
+/flatpak-flutter
