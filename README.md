@@ -49,6 +49,8 @@ You may have to log in and out or restart your PC to see the icon.
 
 
 ##### Android/APK
+ Install via [Google Play Store](https://play.google.com/store/apps/details?id=org.michaelvogt.fl_studyapp)
+
  To get an apk you can install on your android phone, use: 
 
  ``` flutter build apk ```
